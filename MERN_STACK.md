@@ -51,9 +51,45 @@ MongoDB stores data in JSON-like documents. When users submit data through the f
 
 A MERN stack application could be a web app where users can register, log in, and manage their profiles.
 
-## Stages Involved:
+## Steps Involved:
 
-- ## Stage 0: Preparing Prerequisite:
-  Creating an AWS account and a virtual server with Ubuntu Server OS.
-- ## Stage 1:
-  Backend Configuration
+- **Step 0:** Preparing Prerequisite. Creating an AWS account and a virtual server with Ubuntu Server OS.
+- **Step 1:** Backend Configuration
+
+## Step 0: Preparing Prerequisite.
+
+Create an AWS account and a virtual server with Ubuntu Server OS.
+The same process used during the LEMP project was used here.
+
+## Step 1: Backend Configuraion
+
+1.**update and upgrade Ubuntu**
+
+    sudo apt update
+    sudo apt upgrade
+
+2.**Get the location of Node.js software from Ubuntu repositories.**
+
+    curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+
+3.**Install node.JS with the command below**
+
+    sudo apt-get install nodejs -y
+
+**Note:** The command above installs both nodejs and npm. NPM is a package manager for Node
+like apt for Ubuntu, it is used to install Node modules & packages and to manage dependency conflicts.
+
+4.**Verify the node installation with the two commands below**
+
+    node -v
+    npm -v
+
+### APPLICATION SET-UP
+
+5.**Create a new directory for the TO-DO project**
+
+    mkdir Todo
+
+6.**Use the command below to confirm the Todo directory has been created**
+
+    ls
