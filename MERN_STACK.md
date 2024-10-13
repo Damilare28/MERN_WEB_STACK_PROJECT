@@ -93,3 +93,30 @@ like apt for Ubuntu, it is used to install Node modules & packages and to manage
 6.**Use the command below to confirm the Todo directory has been created**
 
     ls
+
+**TIP:** _In order to see some more useful information about files and directories, you can use
+following combination of keys 1s -lih - it will show you different properties and size in human
+readable format. You can learn more about different useful keys for 1s command with 1s -- help._
+
+    ls -lih
+
+**Result**
+
+**Meaninig:** This command is listing a directory called Todo which is 4.0 KB in size, last modified on October 13 at 21:59. It has read, write, and execute permissions for the owner and group, while others can only read and execute. The directory is owned by the user ubuntu and the group ubuntu.
+
+7.**Change the directory to the newly created one**
+
+    cd Todo
+
+8.**Use the command below to initialize the project and also create a new file _package.json_**
+
+    npm init
+
+**Note** _This file will normally contain information about your application
+and the dependencies that it needs to run. Follow the prompts after running the command. You
+can press Enter several times to accept default values, then accept to write out the package. json file
+by typing yes._
+
+9.**Use the ls command to confirm that the package.json file has been created**
+
+    ls
