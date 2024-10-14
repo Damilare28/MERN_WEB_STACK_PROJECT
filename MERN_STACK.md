@@ -120,3 +120,62 @@ by typing yes._
 9.**Use the ls command to confirm that the package.json file has been created**
 
     ls
+
+## Step 2: Installing Express.JS and Routes Directory
+
+1.**Install ExpressJS using npm**
+
+**Reason for using npm**
+
+Remember that Express is a framework for Node.js, therefore a lot of things developers would have programmed is already taken care of out of the box. Therefore it simplifies development, and abstracts a lot of low level details. For example, Express helps to define routes of your application based on HTTP methods and URLs.
+
+    npm install express
+
+2.**Create a file index.js with the command below**
+
+    touch index.js
+
+3.**Confirm that the index.js file was created**
+
+    ls
+
+4.**Install the _dotenv_ module**
+
+    npm install dotenv
+
+5.**Open the index.js file**
+
+    vim index.js
+
+6.**Paste the code below into the file**
+
+    const express = require ('express');
+    require('dotenv') .config ();
+
+    const app = express ();
+
+    const port = process.env. PORT | | 5000;
+
+    app.use ((req, res, next) => {
+    res.header ("Access-Control-Allow-Origin", "\*");
+    res.header ("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next ();
+    });
+
+    app.use((req, res, next) => {
+    res.send ('Welcome to Express');
+    });
+
+    app.listen (port, () => {
+    console.log ('Server running on port ${port}')
+    });
+
+**Note:** Notice that we have specified to use port 5000 in the code. This will be required later when we go on
+the browser.
+
+Use :w to save in vim and use : qa to exit vim
+
+Now it is time to start our server to see if it works. Open your terminal in the same directory as
+your index.js file and type
+
+    node index.js
