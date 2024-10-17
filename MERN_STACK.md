@@ -72,6 +72,8 @@ The same process used during the LEMP project was used here.
 
     curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 
+![Location of nodejs](./Images/Location%20of%20nodejs.png)
+
 3.**Install node.JS with the command below**
 
     sudo apt-get install nodejs -y
@@ -248,3 +250,20 @@ _Write something here from mern web stack 104_
 - **Open the api.js file and delete the code inside with :%d command then paste the code below and save it**
 
         vim api.js
+
+## Step 3: Setting up MongoDB database.
+
+### 1. Sign up for a shared cluster free account with mLab
+
+_Note: A database is needed to store our data. For this project, we'll use mLab. mLab provides MongoDB database as a service solution (DBaaS)_.
+
+_Follow the
+sign up process, select AWS as the cloud provider, and choose a region near you._
+
+_Complete a get started checklist as shown on the image below_
+
+Allow access to the MongoDB database from anywhere (Not secure, but it is ideal for testing)
+
+IMPORTANT NOTE In the image below, make sure you change the time of deleting the entry from 6Hours to 1 Week
+
+- **Create a MongoDB database and collection inside mLab**
