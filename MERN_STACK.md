@@ -78,6 +78,8 @@ The same process used during the LEMP project was used here.
 
     sudo apt-get install nodejs -y
 
+![Installing Nodejs](./Images/Installing%20node.js.png)
+
 **Note:** The command above installs both nodejs and npm. NPM is a package manager for Node
 like apt for Ubuntu, it is used to install Node modules & packages and to manage dependency conflicts.
 
@@ -104,11 +106,15 @@ readable format. You can learn more about different useful keys for 1s command w
 
 **Result**
 
+![Result of ls -lih](./Images/Result%20of%20ls%20-lih.png)
+
 **Meaninig:** This command is listing a directory called Todo which is 4.0 KB in size, last modified on October 13 at 21:59. It has read, write, and execute permissions for the owner and group, while others can only read and execute. The directory is owned by the user ubuntu and the group ubuntu.
 
 7.**Change the directory to the newly created one**
 
     cd Todo
+
+![Todo Dir](./Images/Changing%20directory%20to%20Todo.png)
 
 8.**Use the command below to initialize the project and also create a new file _package.json_**
 
@@ -123,6 +129,8 @@ by typing yes._
 
     ls
 
+![Package.js file](./Images/confirmation%20of%20package.json%20file.png)
+
 ## Step 2: Installing Express.JS and Creation of Routes Directory
 
 ### 1. Install ExpressJS using npm
@@ -132,6 +140,8 @@ by typing yes._
 Remember that Express is a framework for Node.js, therefore a lot of things developers would have programmed is already taken care of out of the box. Therefore it simplifies development, and abstracts a lot of low level details. For example, Express helps to define routes of your application based on HTTP methods and URLs.
 
     npm install express
+
+![Express](./Images/installing%20express.png)
 
 - **Create a file index.js with the command below**
 
@@ -144,6 +154,8 @@ Remember that Express is a framework for Node.js, therefore a lot of things deve
 - **Install the _dotenv_ module**
 
   npm install dotenv
+
+  ![dotenv](./Images/installing%20dotenv.png)
 
 - **Open the index.js file**
 
@@ -177,16 +189,21 @@ the browser.
 
 Use :w to save in vim and use : qa to exit vim
 
-Now it is time to start our server to see if it works. Open your terminal in the same directory as
-your index.js file and type
+![index.js file](./Images/code%20inside%20index.js%20file.png)
+
+Now it is time to start our server to see if it works. Open your terminal in the same directory as your index.js file and type
 
     node index.js
+
+![port 5000](./Images/port%205000.png)
 
 - **Access the server in the public Ip or public DNS**
 
   http://<public ip or public DNS>:5000
 
 ### Output
+
+![Welcome Exp](./Images/Welcome%20to%20Express.png)
 
 ### 2. Create Routes
 
@@ -209,13 +226,30 @@ depend on. So let us create a folder _routes_
 
         cd routes
 
+![routes dir](./Images/Change%20Dir%20to%20routes.png)
+
 - **Create a file _api.js_ in the routes folder**
 
         touch api.js
 
-- **Open the file with the command below**
+- **Open the file with the _vim api.js_ command and paste the code below into it**
 
-        vim api.js
+        const express = require ('express');
+        const router = express.Router();
+
+        router.get('/todos', (req, res, next) => {
+
+        });
+
+        router.post('/todos', (req, res, next) => {
+
+        });
+
+        router.delete('/todos/:id', (req, res, next) => {
+
+        })
+
+        module.exports = router;
 
 ### 3. Create Model Directory
 
