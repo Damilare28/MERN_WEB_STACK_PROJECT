@@ -251,13 +251,27 @@ depend on. So let us create a folder _routes_
 
         module.exports = router;
 
+  ![Api.js code](./Images/APi.js%20code.png)
+
 ### 3. Create Model Directory
 
-_Write something here from mern web stack 104_
+Note: Since the app is going to make use of Mongodb which is a NoSQL database, we need to create a model.
+
+A model is at the heart of JavaScript based applications. We will also use models to define the database schema . This is important so that we will be able to define the fields stored in each Mongodb document.
+
+The Schema is a blueprint of how the database will be constructed, including other data
+fields that may not be required to be stored in the database. These are known as virtual properties
+
+To create a Schema and a model, install mongoose which is a Node.js package that makes
+working with mongodb easier.
 
 - **Change the directory back to _Todo_ folder with cd .. and install Mongoose using npm**
 
+  ![Todo Dir](./Images/Changing%20directory%20to%20Todo.png)
+
         npm install mongoose
+
+  ![Mongoose](./Images/Installation%20of%20mongoose.png)
 
 - **Create a folder _models_ with the mkdir command**
 
@@ -267,6 +281,8 @@ _Write something here from mern web stack 104_
 
         cd models
 
+  ![Models](./Images/Model%20Directory.png)
+
 - **Create a file _todo.js_ with touch command**
 
         touch todo.js
@@ -275,15 +291,51 @@ _Write something here from mern web stack 104_
 
         vim todo.js
 
-_Write something here from mern web stack 104_
+  ![todo.js](./Images/code%20for%20todo.js.png)
+
+**Note** There is need to update our routes from the file api. js in 'routes' directory to make use of the new model.
+
+In Routes directory, _open api.js_ with _vim api.js_, delete the code inside with _:%d_ command and paste the code below into it then save and exit
 
 - **Go back to the _routes_ directory**
 
-        cd routes
+  cd routes
 
-- **Open the api.js file and delete the code inside with :%d command then paste the code below and save it**
+- **Open the api.js file with _vim api.js_ and delete the code inside with :%d command then paste the code below and save it**
 
-        vim api.js
+        const express = require ('express');
+        const router = express.Router();
+        const Todo = require('../models/todo');
+
+        router.get('/todos', (req, res, next) => {
+
+        //this will return all the data, exposing only the id and action field to the client
+        Todo.find({}, 'action')
+        .then(data => res.json (data))
+        .catch(next)
+        });
+
+        router.post('/todos', (req, res, next) => {
+        if(req.body.action){
+        Todo.create(req.body)
+        .then(data => res.json (data))
+        .catch(next)
+        }else {
+        res.json({
+        error: "The input field is empty"
+        })
+        }
+        });
+
+        router.delete('/todos/:id', (req, res, next) => {
+        Todo.findOneAndDelete({"_id": req.params.id})
+        .then(data => res.json(data))
+        .catch(next)
+        })
+
+        module.exports = router;
+
+![Updated routes in api.js file](./Images/New%20api.js%20code.png)
 
 ## Step 3: Setting up MongoDB database.
 
