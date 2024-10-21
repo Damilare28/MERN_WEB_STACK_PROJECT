@@ -348,8 +348,16 @@ sign up process, select AWS as the cloud provider, and choose a region near you.
 
 _Complete a get started checklist as shown on the image below_
 
+![image 1](./Images/1.png)
+
 Allow access to the MongoDB database from anywhere (Not secure, but it is ideal for testing)
 
 IMPORTANT NOTE In the image below, make sure you change the time of deleting the entry from 6Hours to 1 Week
 
+![image 2](./Images/2.png)
+
 - **Create a MongoDB database and collection inside mLab**
+
+![image 3](./Images/3.png)
+
+![image 4](./Images/4.png)
