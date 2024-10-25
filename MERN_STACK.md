@@ -311,14 +311,14 @@ In Routes directory, _open api.js_ with _vim api.js_, delete the code inside wit
 
         //this will return all the data, exposing only the id and action field to the client
         Todo.find({}, 'action')
-        .then(data => res.json (data))
+        .then(data => res.json(data))
         .catch(next)
         });
 
         router.post('/todos', (req, res, next) => {
         if(req.body.action){
         Todo.create(req.body)
-        .then(data => res.json (data))
+        .then(data => res.json(data))
         .catch(next)
         }else {
         res.json({
@@ -330,7 +330,7 @@ In Routes directory, _open api.js_ with _vim api.js_, delete the code inside wit
         router.delete('/todos/:id', (req, res, next) => {
         Todo.findOneAndDelete({"_id": req.params.id})
         .then(data => res.json(data))
-        .catch(next)
+        catch(next)
         })
 
         module.exports = router;
@@ -346,7 +346,7 @@ _Note: A database is needed to store our data. For this project, we'll use mLab.
 _Follow the
 sign up process, select AWS as the cloud provider, and choose a region near you._
 
-_Complete a get started checklist as shown on the image below_
+_Complete a get started checklist as shown in the image below_
 
 ![image 1](./Images/1.png)
 
@@ -361,3 +361,82 @@ IMPORTANT NOTE In the image below, make sure you change the time of deleting the
 ![image 3](./Images/3.png)
 
 ![image 4](./Images/4.png)
+
+- **Create a file in your Todo directory and name it .env.**
+
+      touch .env
+
+      vi .env
+
+- **Add the _connection string_ to access the database in it, just as below:**
+
+**Ex: DB = 'mongodb+srv://<username> :< password>@<network-address>/<dbname>?
+retryWrites=true&w=majority'**
+
+_Note: Ensure to update <username>, <password>, <network-address> and <database> according to your setup_
+
+      DB = 'mongodb+srv://Damilare:Bukola91@cluster0.m8zlt.mongodb.net/Damilare?retryWrites=true&w=majority'
+
+-**Here is how to get the connection string**
+
+![Connect](./Images/5.png)
+![Drivers](./Images/6.png)
+![MongoDB_Driver](./Images/7.png)
+
+Now we need to update the index. js to reflect the use of .env so that Node.js can connect to the
+database.
+
+Simply delete existing content in the file, and update it with the entire code below.
+
+To do that using vim, follow below steps
+
+1. Open the file with vim index. js
+2. Press esc
+3. Type :
+4. Type %d
+5. Hit 'Enter'
+
+The entire content will be deleted, then,
+
+6.  Press i to enter the insert mode in vim
+7.  Now, paste the entire code below in the file.
+
+        const express = require('express');
+        const bodyParser = require('body-parser');
+        const mongoose = require('mongoose');
+        const routes = require('./routes/api');
+        const path = require('path');
+        require ('dotenv').config ();
+
+        const app = express();
+
+        const port = process.env.PORT || 5000;
+
+        //connect to the database
+        mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })
+        .then(() => console. log('Database connected successfully'))
+        .catch(err => console.log (err));
+
+        //since mongoose promise is depreciated, we overide it with node's promise
+        mongoose. Promise = global. Promise;
+
+        app.use((req, res, next) => {
+        res.header("Access-Control-Allow-Origin", "\*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        next();
+        })
+
+        app.use(bodyParser.json());
+
+        app.use('/api', routes);
+
+        app.use((err, req, res, next) => {
+        console.log(err);
+        next();
+        });
+
+        app.listen(port, () => {
+        console.log(`Server running on port ${port}`)
+        });
+
+![new_index.js_file](./Images/new%20index.js%20file.png)
