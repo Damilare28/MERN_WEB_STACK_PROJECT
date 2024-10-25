@@ -444,3 +444,14 @@ The entire content will be deleted, then,
             });
 
 ![new_index.js_file](./Images/index.js%20new%20file%20code.png)
+**Note: Using environment variables to store information is considered more secure and best practice to
+separate configuration and secret data from the application, instead of writing connection strings
+directly inside the _index.js_ application file.**
+
+### 2. Start the server by using the command below
+
+    node index.js
+
+This should display a message **Database Connected successfully** If so, the Backend has been configure successfully.
+
+![Database connected successfully](./Images/Database%20connected.png)
