@@ -452,6 +452,43 @@ directly inside the _index.js_ application file.**
 
     node index.js
 
-This should display a message **Database Connected successfully** If so, the Backend has been configure successfully.
+This should display a message **Database Connected successfully** If so, the Backend and Database has been configure successfully.
 
 ![Database connected successfully](./Images/Database%20connected.png)
+
+## Step 4: Testing Backend Code without Frontend using RESTful API
+
+During creation of our Frontend, we'll need to test our code using RESTFulL API. Hence, we'll make use of **postman** to test our API.
+
+### 1. Download and Install postman.
+
+**Test the Backend part of the To-Do application by carrying out the following operations**
+
+- Add a new task to the list - HTTP POST request
+- Display a list of tasks - HTTP GET request
+- Delete an existing task from the list - HTTP DELETE request
+
+### 2. Open Postman, create a POST request to the API http://<PublicIP-or-PublicDNS>:5000/api/todos.
+
+_This request sends a new task to our To-Do list so the application can store it in the database._
+
+**Note: Make sure the header key is set to _Content-Type_ as _application/json_**
+
+![Post Header_part](./Images/Header%20part%20.png)
+![Post Input_part](./Images/input%20side%20for%20post%20api.png)
+![Post Result](./Images/Output%20side%20for%20post%20.png)
+
+### 3. Create a GET request to the API http://<PublicIP-or-PublicDNS>:5000/api/todos
+
+_This request retrieves all existing records from out To-do application (backend requests these records from the database
+and sends it us back as a response to GET request)._
+
+![GET Input_part](./Images/Input%20for%20Get%20Api.png)
+![GET Result](./Images/Result%20for%20GEt%20api.png)
+
+### 4. Create a DELETE request to the API http://<PublicIP-or-PublicDNS>:5000/api/todos/id
+
+**Note** _Remember to use the valid **id** in the Database_
+
+![DELETE_Input_part](./Images/Input%20for%20Delete%20Api.png)
+![DELETE_REsult](./Images/Result%20for%20Delete%20API.png)
