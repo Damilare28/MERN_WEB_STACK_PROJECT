@@ -492,3 +492,15 @@ and sends it us back as a response to GET request)._
 
 ![DELETE_Input_part](./Images/Input%20for%20Delete%20Api.png)
 ![DELETE_REsult](./Images/Result%20for%20Delete%20API.png)
+
+## Step 5: Frontend Creation
+
+**Let us create the frontend of the To-do app, we will use the _create-react-app_ command to scaffold our app.**
+
+**Create a user interface for a Web client (browser) to interact with the application via API.**
+
+** Paste the command below into the Todo directory**
+
+_This will create a new folder in your Todo directory called client, where you will add all the react code._
+
+    npx create-react-app client
