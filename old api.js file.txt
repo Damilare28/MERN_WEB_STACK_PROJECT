@@ -1,0 +1,22 @@
+const express = require('express');
+const router = express.Router();
+
+// GET request for '/todos'
+router.get('/todos', (req, res, next) => {
+  // Handle the GET request here
+  res.send('Get all todos');
+});
+
+// POST request for '/todos'
+router.post('/todos', (req, res, next) => {
+  // Handle the POST request here
+  res.send('Add a new todo');
+});
+
+// DELETE request for '/todos/:id'
+router.delete('/todos/:id', (req, res, next) => {
+  // Handle the DELETE request here
+  res.send(`Delete todo with id ${req.params.id}`);
+});
+
+module.exports = router;

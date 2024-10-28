@@ -504,3 +504,58 @@ and sends it us back as a response to GET request)._
 _This will create a new folder in your Todo directory called client, where you will add all the react code._
 
     npx create-react-app client
+
+- **Running a React app**
+
+Before testing the react app, there are some dependencies that need to be installed.
+
+1.  Install **concurrently**. It is used to run more than one command simultaneously from the same
+    terminal window.
+
+         npm install concurrently --save-dev
+
+2.  Install **nodemon**. It is used to run and monitor the server. If there is any change in the server
+    code, nodemon will restart it automatically and load the new changes.
+
+        npm install nodemon --save-dev
+
+3.  In Todo folder open the **package.json** file. Change the highlighted part of the below screenshot
+    and replace with the code below.
+
+    ![changed_script](./Images/changed%20script.png)
+
+        "scripts": {
+        "start": "node index.js",
+        "start-watch": "nodemon index.js",
+        "dev": "concurrently \"npm run start-watch\" \"cd client && npm start\""
+        }
+
+![script](./Images/New%20script%20for%20package.json.png)
+
+- **Configure Proxy in package.json file**
+
+1.  Change directory to 'client'
+
+        cd client
+
+2.  Open the package. json file
+
+        vi package.json
+
+3.  Add the key value pair in the package.json file
+
+        "proxy": "http://localhost:5000".
+
+The proxy configuration is added to make it possible to access the application directly from the browser by simply calling the server ur like http://localhost:5000 rather than always including the entire path like http://localhost:5000/api/todos
+
+![proxy](./Images/proxy%20file.png)
+
+- **Open TCP port 3000 on EC2**
+
+- **Go back to the Todo directory and run the command below**
+
+        npm run dev
+
+**Note: Your app should open and start running on localhost:3000**
+
+![run-dev](./Images/npm%20dev%20output.png)
