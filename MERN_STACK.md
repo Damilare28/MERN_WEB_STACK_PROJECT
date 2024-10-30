@@ -556,6 +556,84 @@ The proxy configuration is added to make it possible to access the application d
 
         npm run dev
 
-**Note: Your app should open and start running on localhost:3000**
+**Note: Your app should open and start running on localhost:3000 or public ip:3000**
 
 ![run-dev](./Images/npm%20dev%20output.png)
+
+## Step 6: Creating React Components.
+
+In React, a component is a reusable, self-contained piece of the user interface that defines how a part of your application should look and behave. Components allow you to split the UI into independent, isolated sections that can be managed and updated independently.
+
+One of the advantages of react is that it makes use of components, which are reusable and also
+makes code modular. For our Todo app, there will be two stateful components and one stateless
+component.
+
+- **From your Todo directory move to the client directory then to src directory**
+
+      cd client/src
+
+-**In the src folder, craete another folder _components_**
+
+      mkdir components
+
+-**Move to components directory**
+
+      cd components
+
+-**Inside 'components' directory create three files Input. js, ListTodo. js and Todo. js.**
+
+      touch Input. js, ListTodo. js and Todo. js
+
+-**Let's treat the files one after the other**
+
+-**Open Input.js file**
+
+      vi Input.js
+
+-**Paste the code below into it**
+
+      import React, { Component } from 'react';
+
+import axios from 'axios';
+
+class Input extends Component {
+state = {
+action: ""
+}
+
+addTodo = () => {
+const task = { action: this.state.action };
+
+    if (task.action && task.action.length > 0) {
+      axios.post('/api/todos', task)
+        .then(res => {
+          if (res.data) {
+            this.props.getTodos();
+            this.setState({ action: "" });
+          }
+        })
+        .catch(err => console.log(err));
+    } else {
+      console.log('Input field required');
+    }
+
+}
+
+handleChange = (e) => {
+this.setState({
+action: e.target.value
+});
+}
+
+render() {
+let { action } = this.state;
+return (
+<div>
+<input type="text" onChange={this.handleChange} value={action} />
+<button onClick={this.addTodo}>Add Todo</button>
+</div>
+);
+}
+}
+
+export default Input;
