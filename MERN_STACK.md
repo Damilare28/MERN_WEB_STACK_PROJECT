@@ -590,50 +590,294 @@ component.
 
       vi Input.js
 
--**Paste the code below into it**
+-**Paste the code below into it and save it**
+
+        import React, { Component } from 'react';
+        import axios from 'axios';
+
+        class Input extends Component {
+          state = {
+            action: ""
+          }
+
+          addTodo = () => {
+            const task = { action: this.state.action };
+
+            if (task.action && task.action.length > 0) {
+              axios.post('/api/todos', task)
+                .then(res => {
+                  if (res.data) {
+                    this.props.getTodos();
+                    this.setState({ action: "" });
+                  }
+                })
+                .catch(err => console.log(err));
+            } else {
+              console.log('Input field required');
+            }
+          }
+
+          handleChange = (e) => {
+            this.setState({
+              action: e.target.value
+            });
+          }
+
+          render() {
+            let { action } = this.state;
+            return (
+              <div>
+                <input type="text" onChange={this.handleChange} value={action} />
+                <button onClick={this.addTodo}>Add Todo</button>
+              </div>
+            );
+          }
+        }
+
+        export default Input;
+
+![React_input.js](./Images/input.js.png)
+
+- **Open ListTodo.js, paste the code below into it and save it**
+
+      import React from 'react';
+
+      const ListTodo = ({ todos, deleteTodo }) => {
+        return (
+          <ul>
+            {todos && todos.length > 0 ? (
+              todos.map(todo => (
+                <li key={todo._id} onClick={() => deleteTodo(todo._id)}>
+                  {todo.action}
+                </li>
+              ))
+            ) : (
+              <li>No todo(s) left</li>
+            )}
+          </ul>
+        );
+      }
+
+      export default ListTodo;
+
+![React_ListTodo.js](./Images/ListTodo.js.png)
+
+- **Open Todo.js, paste the code below into it and save it**
 
       import React, { Component } from 'react';
+      import axios from 'axios';
+      import Input from './Input';
+      import ListTodo from './ListTodo';
 
-import axios from 'axios';
+      class Todo extends Component {
+        state = {
+          todos: []
+        };
 
-class Input extends Component {
-state = {
-action: ""
-}
+        componentDidMount() {
+          this.getTodos();
+        }
 
-addTodo = () => {
-const task = { action: this.state.action };
+        getTodos = () => {
+          axios.get('/api/todos')
+            .then(res => {
+              if (res.data) {
+                this.setState({
+                  todos: res.data
+                });
+              }
+            })
+            .catch(err => console.log(err));
+        }
 
-    if (task.action && task.action.length > 0) {
-      axios.post('/api/todos', task)
-        .then(res => {
-          if (res.data) {
-            this.props.getTodos();
-            this.setState({ action: "" });
+        deleteTodo = (id) => {
+          axios.delete(`/api/todos/${id}`)
+            .then(res => {
+              if (res.data) {
+                this.getTodos();
+              }
+            })
+            .catch(err => console.log(err));
+        }
+
+        render() {
+          let { todos } = this.state;
+
+          return (
+            <div>
+              <h1>Todo List</h1>
+              <Input getTodos={this.getTodos} />
+              <ListTodo todos={todos} deleteTodo={this.deleteTodo} />
+            </div>
+          );
+        }
+      }
+
+      export default Todo;
+
+![React_Todo.js](./Images/Todo.js%20code.png)
+
+- **Install axios to make use of Axios which is a Promise based HTTP client for the browser and node.js.**
+
+**Move to client folder**
+
+      cd../..
+
+- **Install Axios**
+
+      npm install axios
+
+There is need to make little adjustment to our react code. Delete the logo and adjust our App. js to look
+like this.
+
+- **Move to the src folder**
+
+      cd src
+
+- **Open App.js and paste the code below into it then save it**
+
+        vi App.Js
+
+
+          import React from 'react';
+          import Todo from './components/Todo';
+          import './App.css';
+
+          const App = () => {
+            return (
+              <div className="App">
+                <Todo />
+              </div>
+            );
+          };
+
+          export default App;
+
+![App.js_code](./Images/APi.js%20code.png)
+
+- **Open App.css with _App.css_ and paste the code below into it then save it**
+
+          .App {
+            text-align: center;
+            font-size: calc(10px + 2vmin);
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
           }
-        })
-        .catch(err => console.log(err));
-    } else {
-      console.log('Input field required');
-    }
 
-}
+          input {
+            height: 40px;
+            width: 50%;
+            border: none;
+            border-bottom: 2px #101113 solid;
+            background: none;
+            font-size: 1.5rem;
+            color: #787a80;
+          }
 
-handleChange = (e) => {
-this.setState({
-action: e.target.value
-});
-}
+          input:focus {
+            outline: none;
+          }
 
-render() {
-let { action } = this.state;
-return (
-<div>
-<input type="text" onChange={this.handleChange} value={action} />
-<button onClick={this.addTodo}>Add Todo</button>
-</div>
-);
-}
-}
+          button {
+            width: 25%;
+            height: 45px;
+            border: none;
+            margin-left: 10px;
+            font-size: 25px;
+            background: #101113;
+            border-radius: 5px;
+            color: #787a80;
+            cursor: pointer;
+          }
 
-export default Input;
+          button:focus {
+            outline: none;
+          }
+
+          ul {
+            list-style: none;
+            text-align: left;
+            padding: 15px;
+            background: #171a1f;
+            border-radius: 5px;
+          }
+
+          li {
+            padding: 15px;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            background: #282c34;
+            border-radius: 5px;
+            overflow-wrap: break-word;
+            cursor: pointer;
+          }
+
+          @media only screen and (min-width: 300px) {
+            .App {
+              width: 80%;
+            }
+
+            input {
+              width: 100%;
+            }
+
+            button {
+              width: 100%;
+              margin-top: 15px;
+              margin-left: 0;
+            }
+          }
+
+          @media only screen and (min-width: 640px) {
+            .App {
+              width: 60%;
+            }
+
+            input {
+              width: 50%;
+            }
+
+            button {
+              width: 30%;
+              margin-left: 10px;
+              margin-top: 0;
+            }
+          }
+
+![App.css_code](./Images/App.css%20file.png)
+
+- **Open index.css with _vim index.css_ and paste the code below into it then save it**
+
+          body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+              "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+              sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            box-sizing: border-box;
+            background-color: #282c34;
+            color: #787a80;
+          }
+
+          code {
+            font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+          }
+
+![index.css_code](./Images/Index.css%20coe.png)
+
+- **Go back to the Todo directory**
+
+        cd ../..
+
+- ** Run the command below**
+
+        npm run dev
+
+## our To-Do app should be ready and fully functional with the functionality discussed earlier: creating a task, deleting a task and viewing all your tasks.
+
+**To view on your browser use your PublicIP:3000**
+
+![Todo_app](./Images/Todo%20app.png)
