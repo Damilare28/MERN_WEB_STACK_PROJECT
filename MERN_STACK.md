@@ -11,7 +11,7 @@ This project helps to further develop deep understanding on the following
 
 ## What is MERN Stack?
 
-    The MERN stack is a popular web development stack that consists of four key technologies used for building full-stack web applications. MERN stands for:
+The MERN stack is a popular web development stack that consists of four key technologies used for building full-stack web applications. MERN stands for:
 
 ### MongoDB:
 
